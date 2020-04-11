@@ -29,7 +29,7 @@ The set of rules governing GuessGo is laid out below:
   - The player whose *hitword* has been activated is the winner of the game.
   - If no *hitword* has been activated, the game proceeds as normal.
   
-A LIST OF FEATURES/FUNCTIONS THAT WE PLAN TO IMPLEMENT
+## A list of features/functions that we plan to implement
 
 - Function to take the input of the size of the grid and the pool size.
 		
