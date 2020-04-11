@@ -28,6 +28,32 @@ The set of rules governing GuessGo is laid out below:
   - However, when a word in a block immediately adjacent to the *hitword* is chosen by the opponent, the *hitword* is activated and the game ends.  
   - The player whose *hitword* has been activated is the winner of the game.
   - If no *hitword* has been activated, the game proceeds as normal.
+  
+A LIST OF FEATURES/FUNCTIONS THAT WE PLAN TO IMPLEMENT
+
+- Function to take the input of the size of the grid and the pool size.
+		
+- Function to randomly select the pool of “normal” words from a .txt file and the pool of “hitwords” from another .txt file (when necessary).  The pool is then displaying for the first time. The pool is also stored in an array of strings.
+		
+- Function to let the user pick words for the grid. Words stored in a dynamic 2D array of strings. Grid displayed.
+		
+- Function to let the computer pick its words randomly. Words stored in another dynamic 2D array.
+		
+- Function to check if the picks are valid.
+		
+- Function to have a toss to select who guesses first.
+		
+- Function to verify comp's and user's guesses
+		
+- Function to make sure the guessed word, if present in the user/computer’s grid, is replaced with X, and stored in the respective dynamic array
+		
+- Function to check for the winner.
+		
+- The main function controls the game-flow. Note that the user and computer will be asked for calling out guesses in this function. There
+  will be an option to end the game. If the game is ended by the user, then all the updated arrays and the numbers will be stored in an
+  output file (separate function). The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
+  or start a new game. If the last game is resumed, then all the information is taken from the previously saved file and the game is
+  continued. Another function will be implemented for this too.
 
 
 
