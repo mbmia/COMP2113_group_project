@@ -40,6 +40,9 @@ void save_game();
 //function to control game flow
 void play_game();
 
+//declaration of print_rules()
+void print_rules();
+
 //function for options at the start of games
 void start_options(){
   int answer;
@@ -76,7 +79,7 @@ void print_rules(){
   char ans;
   bool keeplooping = true;
 
-  string rule_path = "txt_files/ruleook.txt";
+  string rule_path = "txt_files/rulebook.txt";
   ifstream fin;
   fin.open(rule_path.c_str());
 
