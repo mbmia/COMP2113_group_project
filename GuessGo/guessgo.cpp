@@ -100,7 +100,6 @@ void start_options(){
     cout << "To continue the previous game, press 3" << endl;
   }
 
-    cout << '\n';
     cin >> answer;
 
     if (answer == 1){
