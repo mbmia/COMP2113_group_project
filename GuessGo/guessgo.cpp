@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <iomanip>
 using namespace std;
 
 
@@ -9,7 +11,46 @@ bool previous_game();
 void restore_game();
 
 //function to print print_rules
-void print_rules();
+void print_rules(){
+  char ans;
+  bool keeplooping = true;
+
+  string rule_path = "txt_files/ruleook.txt";
+  ifstream fin;
+  fin.open(rule_path.c_str());
+
+  if (fin.fail()){
+    cout << "Sorry, there was an error in displaying the rules. Would you like to continue? (Y/N)" << endl;
+    keeplooping = false;
+  }
+
+  while (!keeplooping){
+    cin >> ans;
+    cout << '\n';
+    if (ans == 'Y'){
+      start_options();
+      keeplooping = true;
+    }
+    else if (ans == 'N'){
+      cout << "You have exited the game."<<endl;
+      exit(0);
+    }
+
+    else
+      cout << "Invalid input. Please try again"<<'\n'<<endl;
+  }
+
+  string x;
+  while (fin >> x){
+    cout << x << " ";
+  }
+
+  cout << '\n' <<endl;
+
+  fin.close();
+  cout << "you've come here" <<endl;
+  start_options();
+}
 
 //function for options at the start of games
 void start_options();
