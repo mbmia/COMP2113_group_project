@@ -1,5 +1,5 @@
 #include <iostream>
-#Iinclude<cstdlib>
+#include<cstdlib>
 #include<cstring>
 #include<cctype>
 #include<ctime>
