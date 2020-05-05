@@ -1,4 +1,8 @@
 #include <iostream>
+#Iinclude<cstdlib>
+#include<cstring>
+#include<cctype>
+#include<ctime>
 #include <fstream>
 #include <iomanip>
 using namespace std;
@@ -69,7 +73,60 @@ void pick_words();
 void check_words();
 
 //function to select who guesses first
-void do_toss();
+bool do_toss(){
+  srand(time(NULL));
+  char pick;
+  cout<<"Do you want to pick first?(Y/N)"<<endl;
+  cin>>pick;
+  pick=tolower(pick);
+  while (pick!='y' && pick!='n'){
+    cout<<"Invaid choice.(Y/N)"<<endl;
+    cin>>pick;
+    pick=tolower(pick);
+  }
+  if (pick=='y'){
+    cout<<"H or T?"<<endl;
+    cin>>pick;
+    pick=tolower(pick);
+    while (pick!='h'&& pick!='t'){
+      cout<<"Invalid choice.(H or T)"<<endl;
+      cin>>pick;
+      pick=tolower(pick);
+    }
+    int toss=rand()%2;
+    if ((toss==0&&pick=='h')||(toss==1&&pick=='t')){
+      cout<<"Congratulations, you won the toss! You will guess first.\n"<<endl;
+      return true;
+    }
+    else {
+      cout<<"You lost the toss! Computer guesses first.\n"<<endl;
+      return false;
+    }
+  }
+   else {
+    int choice_toss=rand()%2;
+    if (choice_toss==0){
+      pick='h';
+      cout<<"Computer chooses Head!"<<endl;
+    }
+    else{
+      cout<<"Computer chooses Tail!"<<endl;
+      pick='t';
+    }
+    int toss=rand()%2;
+    if ((toss==0&&pick=='h')||(toss==1&&pick=='t')) {
+      cout<<"You lost the toss! Computer guesses first.\n"<<endl;
+      return false;
+    }
+    else {
+      cout<<"Congratulations, you won the toss! You will guess first.\n"<<endl;
+      return true; 
+    }
+   }
+}
+   
+     
+    
 
 // function to verify the computer and user's guesses
 void check_guess();
