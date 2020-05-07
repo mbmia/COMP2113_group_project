@@ -163,7 +163,7 @@ bool do_toss(){
   cin>>pick;
   pick=tolower(pick);
   while (pick!='y' && pick!='n'){
-    cout<<"Invaid choice.(Y/N)"<<endl;
+    cout<<"Invalid choice.(Y/N)"<<endl;
     cin>>pick;
     pick=tolower(pick);
   }
