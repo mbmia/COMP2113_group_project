@@ -4,6 +4,7 @@
 #include<cctype>
 #include<ctime>
 #include <fstream>
+#include<sstream>
 #include <iomanip>
 #include <vector>
 #include <bits/stdc++.h>
@@ -31,7 +32,59 @@ bool previous_game(){
 }
 
 //function to restore the saved game
-void restore_game();
+void restore_game(int &grid_size, int &pool_size, string** &coomputer_wordlist, string** &picked_words, vector<string>pool){
+  ifstream fin("txt_files/save_sizes.txt");
+  int size;
+  fin>>size;
+  pool_size=size;
+  fin>>size;
+  grid_size=size;
+  //get the "whose turn" info
+  fin.close();
+  string pool_word;
+  int n=0;
+  ifstream fin("txt_files/save_pool.txt");
+  while (fin>>pool_word){
+    pool.push_back(pool_word);
+  }
+  fin.close();
+  picked_words = new string*[grid_size];
+  for (int i=0; i<grid_size; i++){
+    picked_words[i] = new string[grid_size];
+  }
+  ifstream fin("txt_files/save_picked_words.txt");
+  string line;
+  int m=0;
+  while (getline(fin, line) && m<grid_size){
+    string user_words;
+    istringstream iss(line);
+    int n=0;
+    while (iss>>user_words&& n<grid_size){
+      picked_words[m][n]=user_words;
+      n++;
+    }
+    m++;
+  }
+  fin.close();
+  computer_wordlist = new string*[grid_size];
+  for (int k=0; k<grid_size; k++){
+    computer_wordlist[k] = new string[grid_size];
+  }
+  ifstream fin("txt_files/save_computer_wordlist.txt");
+  string comp_line;
+  int i=0;
+  while (getline(fin, comp_line) && i<grid_size){
+    string comp_words;
+    istringstream iss(comp_line);
+    int j=0;
+    while (iss>>comp_words&& j<grid_size){
+      picked_words[i][j]=user_words;
+      j++;
+    }
+    i++;
+  }
+  fin.close();
+}
 
 //function to take input for the size of grid and pool
 void get_input(int& grid_size, int& pool_size){
