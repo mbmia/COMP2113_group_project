@@ -5,6 +5,9 @@
 #include<ctime>
 #include <fstream>
 #include <iomanip>
+#include <vector>
+#include <bits/stdc++.h>
+#include <algorithm>
 using namespace std;
 
 
@@ -63,8 +66,53 @@ void get_input(int& grid_size, int& pool_size){
   }
 }
 
-// function to randomly select words
-void select_words();
+// function to randomly select words from word_list.txt
+//and store them in a vector in alphabetical order
+void select_words(int pool_size, vector<string> wordarray){
+  int n  = 0;
+  vector<int> numarray;
+
+  srand(time(NULL));
+  for (int i = 0; i<pool_size; i++){
+    n = rand()%3250;
+
+    if (i==0){
+      numarray.push_back(n); }
+
+    else{
+      if(find(numarray.begin(), numarray.end(), n) != numarray.end()) {
+        i--;
+        continue;
+      }
+      else {
+        numarray.push_back(n);
+       }
+    }
+  }
+
+  sort(numarray.begin(), numarray.end());
+
+  string mypath = "txt_files/word_list.txt";
+  ifstream fin;
+  fin.open(mypath.c_str());
+
+  if (fin.fail()){
+    cout << "Sorry, the game has to quit due to an error"<<endl;
+    exit(0);
+  }
+  string myline;
+  int mypointer = 0;
+  int k = 0;
+
+  while(getline(fin, myline) && mypointer < 3250){
+    mypointer++;
+    if (mypointer==numarray[k]){
+      cout << myline << endl;
+      wordarray.push_back(myline);
+      k++;
+    }
+  }
+}
 
 //function to let user pick words for their grid
 void pick_words();
@@ -120,13 +168,13 @@ bool do_toss(){
     }
     else {
       cout<<"Congratulations, you won the toss! You will guess first.\n"<<endl;
-      return true; 
+      return true;
     }
    }
 }
-   
-     
-    
+
+
+
 
 // function to verify the computer and user's guesses
 void check_guess();
