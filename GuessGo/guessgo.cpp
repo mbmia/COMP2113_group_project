@@ -111,6 +111,7 @@ void select_words(int pool_size, vector<string> &wordarray){
       k++;
     }
   }
+  fin.close();
 }
 
 //function to check if the picks are valid
