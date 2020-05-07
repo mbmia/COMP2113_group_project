@@ -336,7 +336,51 @@ bool get_winner(string** &wordlist, int grid_size){
 }
 
 //function to save game for later
-void save_game();
+void save_game(int grid_size, int pool_size, vector<string> pool, string** &computer_wordlist, string** &picked_words){
+  ofstream fout("txt_files/save_pool.txt");
+  if (fout.fail()){
+    cout<<"Sorry, there was an error in saving the game. Quitting without saving.\n"<<endl;
+    exit(0);
+  }
+  else{
+    fout<<"1"<<endl;
+    for (int i=0;i<pool_size;i++){
+      fout<<pool[i]<<endl;
+    }
+    fout.close();
+    ofstream fout("txt_files/save_picked_words.txt");
+    if (fout.fail()){
+      cout<<"Sorry, there was an error in saving the game. Quitting without saving.\n"<<endl;
+      exit(0);
+    }
+    else {
+      for (int m=0;m<grid_size;m++){
+        for (int n=0;n<grid_size;n++){
+          fout<<picked_words[m][n]<<" ";
+        }
+        fout<<"\n";
+      }
+      fout.close();
+      ofstream fout("txt_files/save_computer_wordlist.txt");
+      if (fout.fail()){
+        cout<<"Sorry, there was an error in saving the game. Quitting without saving.\n"<<endl;
+        exit(0);
+      }
+      else {
+        for (int m=0;m<grid_size;m++){
+          for (int n=0;n<grid_size;n++){
+            fout<<computer_wordlist[m][n]<<" ";
+          }
+          fout<<"\n";
+        }
+        fout.close();
+        ofstream fout("txt_files/save_sizes.txt");
+        fout<<pool_size<<" "<<grid_size<<endl; //will add whose turn to guess after implementing the playgame function.
+        fout.close();
+      }
+    }
+  }
+}
 
 //function to control game flow
 void play_game();
