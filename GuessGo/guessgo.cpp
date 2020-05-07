@@ -115,7 +115,12 @@ void select_words(int pool_size, vector<string> &wordarray){
 
 //function to check if the picks are valid
 //returns true if a word exists in the pool
-bool check_words();
+bool check_words(string word, vector<string> pool){
+  if ( find(pool.begin(), pool.end(), word) != pool.end())
+    return true;
+else
+   return false;
+}
 
 //function to let user pick words for their grid
 //the words chosen by the user are stored in a 2D dynamic array
