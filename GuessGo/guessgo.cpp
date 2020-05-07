@@ -174,23 +174,24 @@ void pick_words(int grid_size, string** &picked_words, vector<string> word_pool)
 //function to select who guesses first
 bool do_toss(){
   srand(time(NULL));
+  string myPick;
   char pick;
   cout<<"Do you want to pick first?(Y/N)"<<endl;
-  cin>>pick;
-  pick=tolower(pick);
+  cin>>myPick;
+  pick=tolower(myPick.at(0));
   while (pick!='y' && pick!='n'){
     cout<<"Invalid choice.(Y/N)"<<endl;
-    cin>>pick;
-    pick=tolower(pick);
+    cin>>myPick;
+    pick=tolower(myPick.at(0));
   }
   if (pick=='y'){
     cout<<"H or T?"<<endl;
-    cin>>pick;
-    pick=tolower(pick);
+    cin>>myPick;
+    pick=tolower(myPick.at(0));
     while (pick!='h'&& pick!='t'){
       cout<<"Invalid choice.(H or T)"<<endl;
-      cin>>pick;
-      pick=tolower(pick);
+      cin>>myPick;
+      pick=tolower(myPick.at(0));
     }
     int toss=rand()%2;
     if ((toss==0&&pick=='h')||(toss==1&&pick=='t')){
