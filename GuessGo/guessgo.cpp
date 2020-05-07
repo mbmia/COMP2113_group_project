@@ -11,6 +11,27 @@
 #include <algorithm>
 using namespace std;
 
+//function headers
+bool previous_game();
+void restore_game(int &grid_size, int &pool_size, string** &coomputer_wordlist, string** &picked_words, vector<string>pool);
+void get_input(int& grid_size, int& pool_size);
+void select_words(int pool_size, vector<string> &wordarray);
+void show_pool(vector<string> pool);
+bool check_words(string word, vector<string> pool);
+void pick_user_words(int grid_size, string** &picked_words, vector<string> word_pool);
+void pick_computer_words(int grid_size, int pool_size, string** &computer_wordlist, vector<string> word_pool);
+bool do_toss();
+string get_user_guess(vector<string> pool);
+void get_computer_guess();
+bool check_guess( string guess, string** &wordlist, int grid_size);
+void call_out(string** &wordlist, int grid_size, int m, int n);
+bool get_winner(string** &wordlist, int grid_size);
+void save_game(int grid_size, int pool_size, vector<string> pool, string** &computer_wordlist, string** &picked_words);
+void play_game();
+void print_rules();
+void start_options();
+
+
 
 //function to check if there are any saved games
 bool previous_game(){
@@ -454,8 +475,6 @@ void save_game(int grid_size, int pool_size, vector<string> pool, string** &comp
 //function to control game flow
 void play_game();
 
-//declaration of print_rules()
-void print_rules();
 
 //function for options at the start of games
 void start_options(){
