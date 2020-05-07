@@ -12,7 +12,23 @@ using namespace std;
 
 
 //function to check if there are any saved games
-bool previous_game();
+bool previous_game(){
+  ifstream fin("txt_files/save_pool.txt");
+  if (fin.fail()){
+    cout<<"Error loading the previous game status. Continue to play a new game."<<endl;
+    return false;
+  }
+  else {
+    string game_status;
+    fin>>game_status;
+    if (game_status=="1"){
+      return true;
+    }
+    else 
+      return false;
+  }
+  fin.close();
+}
 
 //function to restore the saved game
 void restore_game();
