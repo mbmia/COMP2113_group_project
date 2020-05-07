@@ -118,8 +118,41 @@ void select_words(int pool_size, vector<string> &wordarray){
 bool check_words();
 
 //function to let user pick words for their grid
-void pick_words();
+//the words chosen by the user are stored in a 2D dynamic array
+void pick_words(int grid_size, string** &picked_words, vector<string> word_pool){
+  picked_words = new string*[grid_size];
+  for (int i=0; i<grid_size; i++){
+    picked_words[i] = new string[grid_size];
+  }
+  string myword;
+  char choice;
 
+  cout<< "Please type the words from the pool that you would like to place in the cells" <<endl;
+  for (int m=0; m<grid_size; m++){
+    for (int n=0; n<grid_size; n++){
+      bool isValid = false;
+
+      while(!isValid){
+        cout << "Row: "<<(m+1)<<", column: "<<(n+1)<<" --> ";
+        cin>> myword;
+        //check if the word is vaild, i.e. exists in the pool
+        if (check_words(myword)==false){
+          cout << "The word does not exist in the pool. Do you want to view the pool again? (Y/N)" <<endl;
+          cin >> choice;
+
+          if (tolower(choice)=='y')
+            show_pool(word_pool);
+
+          cout << "Please try again" <<endl;
+        }
+        else{
+          picked_words[m][n] = myword;
+          isValid = true;
+        }
+      }
+    }
+  }
+}
 
 
 //function to select who guesses first
