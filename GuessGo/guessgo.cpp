@@ -278,7 +278,8 @@ void start_options(){
 
 //function to print an introduction to the game
 void print_rules(){
-  char ans;
+  string ans;
+  char reply;
   bool keeplooping = true;
 
   string rule_path = "txt_files/rulebook.txt";
@@ -293,11 +294,11 @@ void print_rules(){
   while (!keeplooping){
     cin >> ans;
     cout << '\n';
-    if (tolower(ans) == 'y'){
+    if (tolower(ans.at(0)) == 'y'){
       start_options();
       keeplooping = true;
     }
-    else if (tolower(ans) == 'n'){
+    else if (tolower(ans.at(0)) == 'n'){
       cout << "You have exited the game."<<endl;
       exit(0);
     }
