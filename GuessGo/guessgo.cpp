@@ -149,7 +149,7 @@ void pick_words(int grid_size, string** &picked_words, vector<string> word_pool)
           choice = tolower(choice);
 
           while(choice!='y' && choice!='n'){
-            cout << "Invalid response. Try again."<<endl;
+            cout << "Invalid response. (Y/N)"<<endl;
             cin >> strChoice;
             choice = strChoice.at(0);
             choice = tolower(choice);
@@ -305,7 +305,7 @@ void print_rules(){
     }
 
     else
-      cout << "Invalid input. Please try again"<<'\n'<<endl;
+      cout << "Invalid input. (Y/N)"<<'\n'<<endl;
   }
 
   string x;
