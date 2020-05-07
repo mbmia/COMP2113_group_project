@@ -306,7 +306,7 @@ string get_user_guess(vector<string> pool){
 void get_computer_guess();
 
 // function to verify the computer and user's guesses
-void check_guess( string guess, string** &wordlist, int grid_size){
+bool check_guess( string guess, string** &wordlist, int grid_size){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]==guess){
@@ -324,7 +324,16 @@ void call_out(string** &wordlist, int grid_size, int m, int n){
 }
 
 //function to check for the winner
-void get_winner();
+bool get_winner(string** &wordlist, int grid_size){
+  for (int m=0;m<grid_size;m++){
+    for (int n=0;n<grid_size;n++){
+      if (wordlist[m][n]!="0"){
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 //function to save game for later
 void save_game();
