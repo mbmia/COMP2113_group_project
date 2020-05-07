@@ -226,8 +226,11 @@ bool do_toss(){
    }
 }
 
+//function to get guesses from the user
+void get_user_guess();
 
-
+//function to get computer's guess
+void get_computer_guess();
 
 // function to verify the computer and user's guesses
 void check_guess();
