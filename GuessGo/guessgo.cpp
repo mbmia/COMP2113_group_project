@@ -113,11 +113,14 @@ void select_words(int pool_size, vector<string> &wordarray){
   }
 }
 
+//function to check if the picks are valid
+//returns true if a word exists in the pool
+bool check_words();
+
 //function to let user pick words for their grid
 void pick_words();
 
-//function to check if the picks are valid
-void check_words();
+
 
 //function to select who guesses first
 bool do_toss(){
