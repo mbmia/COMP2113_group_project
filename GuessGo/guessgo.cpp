@@ -107,7 +107,6 @@ void select_words(int pool_size, vector<string> &wordarray){
   while(getline(fin, myline) && mypointer < 3250){
     mypointer++;
     if (mypointer==numarray[k]){
-      cout << myline << endl;
       wordarray.push_back(myline);
       k++;
     }
