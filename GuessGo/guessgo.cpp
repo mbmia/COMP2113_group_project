@@ -114,6 +114,12 @@ void select_words(int pool_size, vector<string> &wordarray){
   fin.close();
 }
 
+//function to print the pool of words
+void show_pool(vector<string> pool){
+  for (int i = 0; i<pool.size();i++)
+    cout << pool[i] << endl;
+}
+
 //function to check if the picks are valid
 //returns true if a word exists in the pool
 bool check_words(string word, vector<string> pool){
