@@ -125,7 +125,7 @@ else
 
 //function to let user pick words for their grid
 //the words chosen by the user are stored in a 2D dynamic array
-void pick_words(int grid_size, string** &picked_words, vector<string> word_pool){
+void pick_user_words(int grid_size, string** &picked_words, vector<string> word_pool){
   picked_words = new string*[grid_size];
   for (int i=0; i<grid_size; i++){
     picked_words[i] = new string[grid_size];
