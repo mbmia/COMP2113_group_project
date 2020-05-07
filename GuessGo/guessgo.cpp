@@ -68,7 +68,7 @@ void get_input(int& grid_size, int& pool_size){
 
 // function to randomly select words from word_list.txt
 //and store them in a vector in alphabetical order
-void select_words(int pool_size, vector<string> wordarray){
+void select_words(int pool_size, vector<string> &wordarray){
   int n  = 0;
   vector<int> numarray;
 
