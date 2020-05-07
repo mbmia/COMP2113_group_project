@@ -124,7 +124,7 @@ void pick_words(int grid_size, string** &picked_words, vector<string> word_pool)
   for (int i=0; i<grid_size; i++){
     picked_words[i] = new string[grid_size];
   }
-  string myword;
+  string strChoice, myword;
   char choice;
 
   cout<< "Please type the words from the pool that you would like to place in the cells" <<endl;
@@ -136,14 +136,25 @@ void pick_words(int grid_size, string** &picked_words, vector<string> word_pool)
         cout << "Row: "<<(m+1)<<", column: "<<(n+1)<<" --> ";
         cin>> myword;
         //check if the word is vaild, i.e. exists in the pool
-        if (check_words(myword)==false){
-          cout << "The word does not exist in the pool. Do you want to view the pool again? (Y/N)" <<endl;
-          cin >> choice;
+        if (check_words(myword, word_pool)==false){
+          cout << "That word does not exist in the pool. Do you want to view the pool again? (Y/N)" <<endl;
+          cin >> strChoice;
+          choice = strChoice.at(0);
+          choice = tolower(choice);
 
-          if (tolower(choice)=='y')
-            show_pool(word_pool);
+          while(choice!='y' && choice!='n'){
+            cout << "Invalid response. Try again."<<endl;
+            cin >> strChoice;
+            choice = strChoice.at(0);
+            choice = tolower(choice);
+          }
 
-          cout << "Please try again" <<endl;
+          if (choice=='y'){
+            show_pool(word_pool);}
+
+          else if (tolower(choice)=='n'){
+            cout<< "Please input a word again" <<endl;
+          }
         }
         else{
           picked_words[m][n] = myword;
