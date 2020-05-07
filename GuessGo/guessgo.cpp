@@ -319,7 +319,9 @@ void check_guess( string guess, string** &wordlist, int grid_size){
   return false;
 }
 // function to cross out guessed words
-void call_out();
+void call_out(string** &wordlist, int grid_size, int m, int n){
+  wordlist[m][n]="0";
+}
 
 //function to check for the winner
 void get_winner();
