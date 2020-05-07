@@ -38,7 +38,7 @@ void get_input(int& grid_size, int& pool_size){
   cin >> reply;
 
   while (!looper){
-    if ( reply == 'Y'){
+    if ( tolower(reply) == 'y'){
       cout << "How many words would you like to be able to choose from? You can choose any number between "
            <<nsquared <<" and 500." <<endl;
       cin >> pool_size;
@@ -50,7 +50,7 @@ void get_input(int& grid_size, int& pool_size){
       looper = true;
     }
 
-    else if (reply == 'N'){
+    else if (tolower(reply) == 'n'){
       cout << "Proceeding with the default pool size..." <<endl;
 
       if (grid_size<=10)
@@ -241,11 +241,11 @@ void print_rules(){
   while (!keeplooping){
     cin >> ans;
     cout << '\n';
-    if (ans == 'Y'){
+    if (tolower(ans) == 'y'){
       start_options();
       keeplooping = true;
     }
-    else if (ans == 'N'){
+    else if (tolower(ans) == 'n'){
       cout << "You have exited the game."<<endl;
       exit(0);
     }
