@@ -430,7 +430,7 @@ bool check_guess(int grid_size, string guess, string** &wordlist){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]==guess){
-        wordlist[m][n] = 'X';//instead of calling the call_out() function, we can just replace the guessed word with "X" int the array.
+        wordlist[m][n] = "X";//instead of calling the call_out() function, we can just replace the guessed word with "X" int the array.
         cout << "You have hit a word in your opponent's grid!" <<endl;
         return true;
       }
@@ -443,15 +443,29 @@ bool check_guess(int grid_size, string guess, string** &wordlist){
 //returns 0 if the winner is the user
 //returns 1 if the winner is the computer
 //dummy function for now
-bool get_winner(int grid_size, string** &wordlist, string** &computer_wordlist){
+bool get_winner(string** &wordlist, int grid_size){
+  int flag_col=0,n=0;
+  while (n<grid_size){
+    for (int m=0;m<grid_size;m++){ //for the columns
+      if (wordlist[m][n]!="X"){
+        flag_col=1;
+        break;
+      }
+    }
+    if (flag_col==0)
+      return true;
+    else
+      flag_col=0;
+    n++;
+  }
   for (int m=0;m<grid_size;m++){
-    for (int n=0;n<grid_size;n++){
-      if (wordlist[m][n]!="0"){
+    for (int j=0;j<grid_size;j++){  //for the rows
+      if (wordlist[m][j]!="X"){
         return false;
       }
     }
+    return true;
   }
-  return true;
 }
 
 //function to save game for later
@@ -624,8 +638,8 @@ int main(){
   bool tossResult = do_toss();
 
   //game continues till there is a winner
-  while(get_winner(grid_size, userwordlist, computerwordlist)!=0
-        && get_winner(grid_size, userwordlist, computerwordlist)!=1){
+  while(get_winner(grid_size, userwordlist)!=true
+        && get_winner(grid_size, computerwordlist)!=true){
     if (tossResult == true){
       user_play(grid_size, userwordlist, pool);
       computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
@@ -635,10 +649,10 @@ int main(){
       user_play(grid_size, userwordlist, pool);
     }
   }
-  if (get_winner(grid_size, userwordlist, computerwordlist)==0){
+  if (get_winner(grid_size, computerwordlist)==true){
     cout << "Congrats! You have won the game :D" <<endl;
   }
-  else if (get_winner(grid_size, userwordlist, computerwordlist)==1){
+  else if (get_winner(grid_size, userwordlist)==true){
     cout << "The computer won the game :(" <<endl;
   }
 
