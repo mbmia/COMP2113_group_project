@@ -515,6 +515,19 @@ void user_play(int grid_size, string** &users_list, vector<string> pool){
   }
 }
 
+//functio to let computer play
+void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers){
+  //computer guesses
+  string computerguess = get_computer_guess(pool_size, pool, hit_numbers);
+  //guess is checked
+  //the game shows whether the user's word has been hit or not
+  if (check_guess(grid_size, computerguess, computer_list)){
+    cout << "The computer hit a word in your grid" <<endl;
+  }
+  else{
+    cout << "The computer's guess was a miss!" <<endl;
+  }
+}
 
 //function for options at the start of games
 void start_options(){
