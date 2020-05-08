@@ -431,7 +431,6 @@ bool check_guess(int grid_size, string guess, string** &wordlist){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]==guess){
         wordlist[m][n] = "X";//instead of calling the call_out() function, we can just replace the guessed word with "X" int the array.
-        cout << "You have hit a word in your opponent's grid!" <<endl;
         return true;
       }
     }
@@ -464,8 +463,8 @@ bool get_winner(int grid_size, string** &wordlist){
         return false;
       }
     }
-    return true;
   }
+  return true;
 }
 
 //function to save game for later
