@@ -589,7 +589,7 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, vector
 
 //function for options at the start of games
 void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
-  int answer;
+  string answer;
 
   cout << "To view the rules, press 1" << endl;
   cout << "To start a new game, press 2" <<endl;
@@ -600,20 +600,20 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 
     cin >> answer;
 
-    while (answer!=1 && answer!=2 && answer!=3){
+    while (answer.at(0)!='1' && answer.at(0)!='2' && answer.at(0)!='3'){
       cout << "Invalid input. Please try again." << endl;
       cin >> answer;
     }
 
-    if (answer == 1){
+    if (answer.at(0) == '1'){
       cout << '\n';
       print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool); }
 
-    else if (answer == 2){
+    else if (answer.at(0) == '2'){
       get_input(grid_size, pool_size);
     }
 
-    else if (answer==3){
+    else if (answer.at(0)=='3'){
       restore_game(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
     }
 }
