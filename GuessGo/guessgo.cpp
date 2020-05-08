@@ -303,7 +303,6 @@ void pick_computer_words(int grid_size, int pool_size, string** &computer_wordli
   }
 }
 
-
 //function to select who guesses first
 bool do_toss(){
   srand(time(NULL));
@@ -438,7 +437,9 @@ bool check_guess( string guess, string** &wordlist, int grid_size){
   return false;
 }
 
-//function to check for the winner
+//function to check for the overall winner
+//returns 0 if the winner is the user
+//returns 1 if the winner is the computer
 bool get_winner(string** &wordlist, int grid_size){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
@@ -498,8 +499,17 @@ void save_game(int grid_size, int pool_size, vector<string> pool, string** &comp
 }
 
 //function to control game flow
-void play_game();
+void user_play(){
+  //user guesses
+  //guess is checked
+  //the game tells user if the guess was a hit or miss
+}
 
+void computer_play{
+  //computer guesses
+  //guess is checked
+  //the game shows whether the user's word has been hit or not
+}
 
 //function for options at the start of games
 void start_options(){
