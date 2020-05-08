@@ -688,10 +688,12 @@ int main(){
     if (tossResult == true){
       user_play(grid_size, userwordlist, pool);
       computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
+      save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
     }
     else{
       computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
       user_play(grid_size, userwordlist, pool);
+      save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
     }
   }
   if (get_winner(grid_size, computerwordlist)==true){
@@ -700,26 +702,6 @@ int main(){
   else if (get_winner(grid_size, userwordlist)==true){
     cout << "The computer won the game :(" <<endl;
   }
-
-  cout << "Would you like to save the game? (Y/N)" <<endl;
-  string getReply;
-  cin >> getReply;
-
-  while(tolower(getReply.at(0))!='y' && tolower(getReply.at(0))!='n'){
-    cin >> getReply;
-  }
-
-  if (tolower(getReply.at(0))=='y'){
-    save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
-  }
-
-  else if (tolower(getReply.at(0))=='y'){
-    cout << "The game was not saved. See you next time!" <<endl;
-  }
-
-  cout << pool_size;
-  select_words(pool_size, pool);
-  show_pool(pool);
 
   return 0;
 }
