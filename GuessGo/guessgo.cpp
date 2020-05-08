@@ -70,7 +70,7 @@ void user_play(int grid_size, string** &users_list, vector<string> pool);
 void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers);
 
 //function for options at the start of games
-void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
+string start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 
 //function to print an introduction to the game
 void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
@@ -588,7 +588,7 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, vector
 }
 
 //function for options at the start of games
-void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
+string start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
   string answer;
 
   cout << "To view the rules, press 1" << endl;
@@ -607,15 +607,19 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 
     if (answer.at(0) == '1'){
       cout << '\n';
-      print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool); }
+      print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
+      return "1";}
 
     else if (answer.at(0) == '2'){
       get_input(grid_size, pool_size);
+      return "2";
     }
 
     else if (answer.at(0)=='3'){
       restore_game(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
+      return "3";
     }
+    return "0";
 }
 
 //function to print an introduction to the game
@@ -671,13 +675,14 @@ int main(){
 
   cout << "Welcome to GuessGo!" << '\n' <<endl;
   //shows starting prompt
-  start_options(grid_size, pool_size, computerwordlist, userwordlist, pool);
+  if (start_options(grid_size, pool_size, computerwordlist, userwordlist, pool)=="2" ||
+      start_options(grid_size, pool_size, computerwordlist, userwordlist, pool)=="1"){
   select_words(pool_size, pool);
   cout <<"\nThis is your pool" <<endl;
   show_pool(pool);
 
   pick_user_words(grid_size, userwordlist, pool);
-  pick_computer_words(grid_size, pool_size, computerwordlist, pool);
+  pick_computer_words(grid_size, pool_size, computerwordlist, pool); }
 
   //does toss to determine the turn
   bool tossResult = do_toss();
