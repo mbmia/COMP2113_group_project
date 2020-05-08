@@ -393,7 +393,36 @@ string get_user_guess(vector<string> pool){
 }
 
 //function to get computer's guess
-void get_computer_guess();
+string get_computer_guess(int pool_size, vector<string> pool, vector<int> hit_numbers){
+  bool isHit = false;
+
+  srand(time(NULL));
+  int rnd = rand()%pool_size;
+
+  if (hit_numbers.size()==0){
+    hit_numbers.push_back(rnd);
+  }
+
+  if (hit_numbers.size()>0){
+    while(!isHit){
+      int rnd = rand()%pool_size;
+      //if the number exists in the hit_numbers vector
+      if (find(hit_numbers.begin(), hit_numbers.end(), rnd) != hit_numbers.end()){
+        continue;
+      }
+      else{
+        //guess hasn't been hit yet
+        isHit = true;
+      }
+    }
+  }
+
+  string computer_guess = pool[rnd];
+  if (check_guess){
+    hit_numbers.push_back(rnd);
+  }
+  return computer_guess;
+}
 
 // function to verify the computer and user's guesses
 bool check_guess( string guess, string** &wordlist, int grid_size){
@@ -401,7 +430,6 @@ bool check_guess( string guess, string** &wordlist, int grid_size){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]==guess){
         wordlist[m][n] = 'X';//instead of calling the call_out() function, we can just replace the guessed word with "X" int the array.
-        //wordlist[m][n]="0";
         cout << "You have hit a word in your opponent's grid!" <<endl;
         return true;
       }
