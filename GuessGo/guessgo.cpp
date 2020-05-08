@@ -530,33 +530,34 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, vector
 }
 
 //function for options at the start of games
-void start_options(){
+void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
   int answer;
 
   cout << "To view the rules, press 1" << endl;
   cout << "To start a new game, press 2" <<endl;
 
-  if (previous_game){
+  if (previous_game()){
     cout << "To continue the previous game, press 3" << endl;
   }
 
     cin >> answer;
 
+    while (answer!=1 && answer!=2 && answer!=3){
+      cout << "Invalid input. Please try again." << endl;
+      cin >> answer;
+    }
+
     if (answer == 1){
       cout << '\n';
-      print_rules(); }
+      print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool); }
 
     else if (answer == 2){
-      play_game();
+      get_input(grid_size, pool_size);
     }
 
     else if (answer==3){
-      restore_game();
-      return; }
-
-    else{
-      cout << "Invalid input. Please try again." << endl;
-      cin >> answer; }
+      restore_game(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
+    }
 }
 
 //function to print an introduction to the game
