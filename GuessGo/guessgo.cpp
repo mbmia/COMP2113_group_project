@@ -561,7 +561,7 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 }
 
 //function to print an introduction to the game
-void print_rules(){
+void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
   string ans;
   char reply;
   bool keeplooping = true;
@@ -579,7 +579,7 @@ void print_rules(){
     cin >> ans;
     cout << '\n';
     if (tolower(ans.at(0)) == 'y'){
-      start_options();
+      start_options(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
       keeplooping = true;
     }
     else if (tolower(ans.at(0)) == 'n'){
@@ -599,7 +599,7 @@ void print_rules(){
   cout << '\n' <<endl;
 
   fin.close();
-  start_options();
+  start_options(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
 }
 
 int main(){
