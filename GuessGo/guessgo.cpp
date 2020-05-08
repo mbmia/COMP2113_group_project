@@ -267,6 +267,7 @@ void pick_user_words(int grid_size, string** &picked_words, vector<string> word_
   }
 }
 
+//function for the computer to pick its words (at random)
 void pick_computer_words(int grid_size, int pool_size, string** &computer_wordlist, vector<string> word_pool){
   int r  = 0;
   vector<int> p;
