@@ -163,7 +163,7 @@ void get_input(int& grid_size, int& pool_size){
   cout<< "How many rows/columns would you like your grid to have? (It must be between 3 and 15!)"<<endl;
   cin >> grid_size;
 
-  while (grid_size<3 && grid_size>15){
+  while (grid_size<3 || grid_size>15){
     cout << "Your choice is out of range. Please try again." <<endl;
     cin >> grid_size;
   }
