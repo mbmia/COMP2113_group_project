@@ -28,7 +28,7 @@ void call_out(string** &wordlist, int grid_size, int m, int n);
 bool get_winner(string** &wordlist, int grid_size);
 void save_game(int grid_size, int pool_size, vector<string> pool, string** &computer_wordlist, string** &picked_words);
 void play_game();
-void print_rules();
+void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 void start_options();
 
 
@@ -426,7 +426,7 @@ string get_computer_guess(int pool_size, vector<string> pool, vector<int> hit_nu
 }
 
 // function to verify the computer and user's guesses
-bool check_guess( string guess, string** &wordlist, int grid_size){
+bool check_guess(int grid_size, string guess, string** &wordlist){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]==guess){
@@ -443,7 +443,7 @@ bool check_guess( string guess, string** &wordlist, int grid_size){
 //returns 0 if the winner is the user
 //returns 1 if the winner is the computer
 //dummy function for now
-bool get_winner(int grid_size, string** &user_wordlist, string** &computer_wordlist){
+bool get_winner(int grid_size, string** &wordlist, string** &computer_wordlist){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]!="0"){
