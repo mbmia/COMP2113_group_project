@@ -112,14 +112,14 @@ void restore_game(int &grid_size, int &pool_size, string** &computer_wordlist, s
 
 //function to take input for the size of grid and pool
 void get_input(int& grid_size, int& pool_size){
-  char reply;
+  string reply;
   bool looper = false;
 
   cout << "In GuessGo, your virtual grid will have the same number of rows and columns" <<endl;
   cout<< "How many rows/columns would you like your grid to have? (It must be between 3 and 15!)"<<endl;
   cin >> grid_size;
 
-  while (grid_size<3 || grid_size>15){
+  while (grid_size<3 && grid_size>15){
     cout << "Your choice is out of range. Please try again." <<endl;
     cin >> grid_size;
   }
@@ -130,34 +130,31 @@ void get_input(int& grid_size, int& pool_size){
   cout << "Do you have a preference for the number of words you'll play with? (Y/N)" <<endl;
   cin >> reply;
 
-  while (!looper){
-    if ( tolower(reply) == 'y'){
-      cout << "How many words would you like to be able to choose from? You can choose any number between "
-           <<nsquared <<" and 500." <<endl;
-      cin >> pool_size;
-
-      while (pool_size<grid_size*grid_size || pool_size>500){
-        cout << "Your choice is out of range. Please choose a number between "<<nsquared <<" and 500" <<endl;
-        cin >> pool_size;
-      }
-      looper = true;
-    }
-
-    else if (tolower(reply) == 'n'){
-      cout << "Proceeding with the default pool size..." <<endl;
-
-      if (grid_size<=10)
-        pool_size = 100;
-      else if (grid_size>10 && grid_size <= 15)
-        pool_size = 225;
-
-      looper = true;
-    }
-
-    else
-      cout << "Invalid input, please try again" <<endl;
+  while(tolower(reply.at(0))!='y' && tolower(reply.at(0))!='n'){
+    cout << "Invalid input. (Y/N)" <<endl;
+    cin >> reply;
   }
-}
+
+  if ( tolower(reply.at(0)) == 'y'){
+    cout << "How many words would you like to be able to choose from? You can choose any number between "
+           <<nsquared <<" and 500." <<endl;
+    cin >> pool_size;
+
+    while (pool_size<grid_size*grid_size || pool_size>500){
+      cout << "Your choice is out of range. Please choose a number between "<<nsquared <<" and 500" <<endl;
+      cin >> pool_size;
+      }
+    }
+
+  else if (tolower(reply.at(0)) == 'n'){
+    cout << "Proceeding with the default pool size..." <<endl;
+
+    if (grid_size<=10)
+      pool_size = 100;
+    else if (grid_size>10 && grid_size <= 15)
+      pool_size = 225;
+    }
+  }
 
 // function to randomly select words from word_list.txt to form a pool
 //and store them in a vector in alphabetical order
