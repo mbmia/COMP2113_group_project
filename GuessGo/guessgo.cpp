@@ -429,17 +429,13 @@ bool check_guess( string guess, string** &wordlist, int grid_size){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]==guess){
-        call_out(wordlist,grid_size,m,n);//instead of calling the call_out() function, we can just replace the guessed word with "0" int the array.
-        //wordlist[m][n]="0";
+        //replace the guessed word with "X" in the array.
+        wordlist[m][n]="X";
         return true;
       }
     }
   }
   return false;
-}
-// function to cross out guessed words
-void call_out(string** &wordlist, int grid_size, int m, int n){
-  wordlist[m][n]="0";
 }
 
 //function to check for the winner
