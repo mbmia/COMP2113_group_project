@@ -46,10 +46,9 @@ bool previous_game(){
     if (game_status=="1"){
       return true;
     }
-    else
-      return false;
   }
   fin.close();
+  return false;
 }
 
 //function to restore the saved game
