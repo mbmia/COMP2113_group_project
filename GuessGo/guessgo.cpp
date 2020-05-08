@@ -79,7 +79,8 @@ void print_rules(int grid_size, int pool_size, string** computer_wordlist, strin
 
 //function to check if there are any saved games
 bool previous_game(){
-  ifstream fin("txt_files/save_pool.txt");
+  ifstream fin;
+  fin.open("txt_files/save_pool.txt");
   if (fin.fail()){
     cout<<"Error loading the previous game status. Continue to play a new game."<<endl;
     return false;
