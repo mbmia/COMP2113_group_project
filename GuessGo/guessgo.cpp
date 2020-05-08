@@ -308,7 +308,7 @@ bool do_toss(){
   srand(time(NULL));
   string myPick;
   char pick;
-  cout<<"Do you want to pick first?(Y/N)"<<endl;
+  cout<<"\nIt's time for a toss. Do you want to pick first?(Y/N)"<<endl;
   cin>>myPick;
   pick=tolower(myPick.at(0));
   while (pick!='y' && pick!='n'){
