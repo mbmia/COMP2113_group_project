@@ -439,8 +439,11 @@ bool check_guess( string guess, string** &wordlist, int grid_size){
   return false;
 }
 
-//function to check for the winner
-bool get_winner(string** &wordlist, int grid_size){
+//function to check for the overall winner
+//returns 0 if the winner is the user
+//returns 1 if the winner is the computer
+//dummy function for now
+bool get_winner(int grid_size, string** &user_wordlist, string** &computer_wordlist){
   for (int m=0;m<grid_size;m++){
     for (int n=0;n<grid_size;n++){
       if (wordlist[m][n]!="0"){
