@@ -22,7 +22,7 @@ void pick_user_words(int grid_size, string** &picked_words, vector<string> word_
 void pick_computer_words(int grid_size, int pool_size, string** &computer_wordlist, vector<string> word_pool);
 bool do_toss();
 string get_user_guess(vector<string> pool);
-void get_computer_guess();
+string get_computer_guess(int pool_size, vector<string> pool, vector<int> hit_numbers);
 bool check_guess( string guess, string** &wordlist, int grid_size);
 void call_out(string** &wordlist, int grid_size, int m, int n);
 bool get_winner(string** &wordlist, int grid_size);
@@ -46,7 +46,7 @@ bool previous_game(){
     if (game_status=="1"){
       return true;
     }
-    else 
+    else
       return false;
   }
   fin.close();
@@ -393,7 +393,36 @@ string get_user_guess(vector<string> pool){
 }
 
 //function to get computer's guess
-void get_computer_guess();
+string get_computer_guess(int pool_size, vector<string> pool, vector<int> hit_numbers){
+  bool isHit = false;
+
+  srand(time(NULL));
+  int rnd = rand()%pool_size;
+
+  if (hit_numbers.size()==0){
+    hit_numbers.push_back(rnd);
+  }
+
+  if (hit_numbers.size()>0){
+    while(!isHit){
+      int rnd = rand()%pool_size;
+      //if the number exists in the hit_numbers vector
+      if (find(hit_numbers.begin(), hit_numbers.end(), rnd) != hit_numbers.end()){
+        continue;
+      }
+      else{
+        //guess hasn't been hit yet
+        isHit = true;
+      }
+    }
+  }
+
+  string computer_guess = pool[rnd];
+  if (check_guess){
+    hit_numbers.push_back(rnd);
+  }
+  return computer_guess;
+}
 
 // function to verify the computer and user's guesses
 bool check_guess( string guess, string** &wordlist, int grid_size){
