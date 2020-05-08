@@ -52,8 +52,9 @@ bool previous_game(){
 }
 
 //function to restore the saved game
-void restore_game(int &grid_size, int &pool_size, string** &coomputer_wordlist, string** &picked_words, vector<string>pool){
-  ifstream fin("txt_files/save_sizes.txt");
+void restore_game(int &grid_size, int &pool_size, string** &computer_wordlist, string** &picked_words, vector<string>pool){
+  ifstream fin;
+  fin.open("txt_files/save_sizes.txt");
   int size;
   fin>>size;
   pool_size=size;
@@ -63,7 +64,8 @@ void restore_game(int &grid_size, int &pool_size, string** &coomputer_wordlist, 
   fin.close();
   string pool_word;
   int n=0;
-  ifstream fin("txt_files/save_pool.txt");
+
+  fin.open("txt_files/save_pool.txt");
   while (fin>>pool_word){
     pool.push_back(pool_word);
   }
@@ -72,11 +74,12 @@ void restore_game(int &grid_size, int &pool_size, string** &coomputer_wordlist, 
   for (int i=0; i<grid_size; i++){
     picked_words[i] = new string[grid_size];
   }
-  ifstream fin("txt_files/save_picked_words.txt");
+
+  fin.open("txt_files/save_picked_words.txt");
   string line;
+  string user_words;
   int m=0;
   while (getline(fin, line) && m<grid_size){
-    string user_words;
     istringstream iss(line);
     int n=0;
     while (iss>>user_words&& n<grid_size){
@@ -90,7 +93,8 @@ void restore_game(int &grid_size, int &pool_size, string** &coomputer_wordlist, 
   for (int k=0; k<grid_size; k++){
     computer_wordlist[k] = new string[grid_size];
   }
-  ifstream fin("txt_files/save_computer_wordlist.txt");
+
+  fin.open("txt_files/save_computer_wordlist.txt");
   string comp_line;
   int i=0;
   while (getline(fin, comp_line) && i<grid_size){
