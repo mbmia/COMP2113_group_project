@@ -67,10 +67,13 @@ void save_game(int grid_size, int pool_size, vector<string> pool, string** &comp
 void user_play(int grid_size, string** &users_list, vector<string> pool);
 
 //functio to let computer play
-void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers);
+void computer_play(int grid_size, int pool_size, string** &computer_list, string** &user_list, vector<string> pool, vector<int> hit_numbers);
 
 //function for options at the start of games
 string start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
+
+//function to show the user their grid_size
+void view_my_list(int grid_size, string ** mywordlist);
 
 //function to print an introduction to the game
 void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
@@ -157,17 +160,38 @@ void restore_game(int &grid_size, int &pool_size, string** &computer_wordlist, s
 
 //function to take input for the size of grid and pool
 void get_input(int& grid_size, int& pool_size){
-  string reply;
+  string reply, gridsize;
   bool looper = false;
 
   cout << "In GuessGo, your virtual grid will have the same number of rows and columns" <<endl;
   cout<< "How many rows/columns would you like your grid to have? (It must be between 3 and 15!)"<<endl;
-  cin >> grid_size;
+  bool keeplooping = false;
 
-  while (grid_size<3 || grid_size>15){
-    cout << "Your choice is out of range. Please try again." <<endl;
-    cin >> grid_size;
+  while(!keeplooping){
+  grid_size = 0;
+  cin >> gridsize;
+
+  try{
+    grid_size = stoi(gridsize);
   }
+  catch(invalid_argument const &e){
+    cout << "Please input an integer" <<endl;
+  }
+
+  if (grid_size>=3 && grid_size<=15){
+    keeplooping = true;
+  }
+
+  else if (grid_size==0){
+    continue;
+  }
+
+  else{
+    cout << "Your choice is out of range. Please try again." <<endl;
+  }
+}
+
+
   cout <<endl;
 
   int nsquared = grid_size*grid_size;
@@ -175,7 +199,7 @@ void get_input(int& grid_size, int& pool_size){
   cout << "Do you have a preference for the number of words you'll play with? (Y/N)" <<endl;
   cin >> reply;
 
-  while(tolower(reply.at(0))!='y' && tolower(reply.at(0))!='n'){
+  while(reply.length()!=1 || (reply.at(0)!='y' && reply.at(0)!='n')){
     cout << "Invalid input. (Y/N)" <<endl;
     cin >> reply;
   }
@@ -252,7 +276,7 @@ void select_words(int pool_size, vector<string> &wordarray){
 //function to print the pool of words
 void show_pool(vector<string> pool){
   for (int i = 0; i<pool.size();i++)
-    cout << pool[i] << endl;
+    cout << left << setw(16) << pool[i]<<endl;
 }
 
 //function to check if the picks are valid
@@ -289,7 +313,7 @@ void pick_user_words(int grid_size, string** &picked_words, vector<string> word_
           choice = strChoice.at(0);
           choice = tolower(choice);
 
-          while(choice!='y' && choice!='n'){
+          while(strChoice.length()!=1 || (choice!='y' && choice!='n')){
             cout << "Invalid response. (Y/N)"<<endl;
             cin >> strChoice;
             choice = strChoice.at(0);
@@ -358,7 +382,8 @@ bool do_toss(){
   cout<<"\nIt's time for a toss. Do you want to pick first?(Y/N)"<<endl;
   cin>>myPick;
   pick=tolower(myPick.at(0));
-  while (pick!='y' && pick!='n'){
+
+  while (myPick.length()!=1 ||( pick!='y' && pick!='n')){
     cout<<"Invalid choice.(Y/N)"<<endl;
     cin>>myPick;
     pick=tolower(myPick.at(0));
@@ -367,7 +392,7 @@ bool do_toss(){
     cout<<"H or T?"<<endl;
     cin>>myPick;
     pick=tolower(myPick.at(0));
-    while (pick!='h'&& pick!='t'){
+    while (myPick.length()!=1 ||( pick!='h' && pick!='t')){
       cout<<"Invalid choice.(H or T)"<<endl;
       cin>>myPick;
       pick=tolower(myPick.at(0));
@@ -408,7 +433,7 @@ bool do_toss(){
 //checks if the guess exists in the pool
 string get_user_guess(vector<string> pool){
     string guess, response;
-    cout << "Please type in your guess: ";
+    cout << "Please type in your guess" <<endl;
     bool guessOk = false;
     while (!guessOk){
       cin >> guess;
@@ -421,7 +446,7 @@ string get_user_guess(vector<string> pool){
 
         cin >> response;
 
-        while(tolower(response.at(0))!='y' && tolower(response.at(0))!='n'){
+        while(response.length()!=1 || (tolower(response.at(0))!='y'&& tolower(response.at(0))!='n')){
           cout << "Invalid response. (Y/N)"<<endl;
           cin >> response;
           }
@@ -574,13 +599,17 @@ void user_play(int grid_size, string** &users_list, vector<string> pool){
 }
 
 //functio to let computer play
-void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers){
+void computer_play(int grid_size, int pool_size, string** &computer_list, string** &user_list, vector<string> pool, vector<int> hit_numbers){
   //computer guesses
+  string reply;
+
   string computerguess = get_computer_guess(pool_size, pool, hit_numbers);
   //guess is checked
   //the game shows whether the user's word has been hit or not
   if (check_guess(grid_size, computerguess, computer_list)){
     cout << "The computer hit a word in your grid" <<endl;
+    cout << "\nYour grid now is: " <<endl;
+    view_my_list(grid_size, user_list);
   }
   else{
     cout << "The computer's guess was a miss!" <<endl;
@@ -600,7 +629,7 @@ string start_options(int &grid_size, int &pool_size, string** computer_wordlist,
 
     cin >> answer;
 
-    while (answer.at(0)!='1' && answer.at(0)!='2' && answer.at(0)!='3'){
+    while (answer.length()!=1|| (answer.at(0)!='1' && answer.at(0)!='2' && answer.at(0)!='3')){
       cout << "Invalid input. Please try again." << endl;
       cin >> answer;
     }
@@ -608,7 +637,8 @@ string start_options(int &grid_size, int &pool_size, string** computer_wordlist,
     if (answer.at(0) == '1'){
       cout << '\n';
       print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
-      return "1";}
+      return "1";
+    }
 
     else if (answer.at(0) == '2'){
       get_input(grid_size, pool_size);
@@ -620,6 +650,22 @@ string start_options(int &grid_size, int &pool_size, string** computer_wordlist,
       return "3";
     }
     return "0";
+}
+
+void view_my_list(int grid_size, string ** mywordlist){
+  int largestlength = mywordlist[0][0].length();
+  for (int m = 0; m < grid_size; m++){
+    for (int n = 0; n<grid_size; n++){
+      if (mywordlist[m][n].length()>largestlength)
+        largestlength = mywordlist[m][n].length();
+    }
+  }
+ for (int i = 0; i<grid_size; i++){
+    for (int j = 0; j<grid_size; j++){
+      cout << left << setw(largestlength)<< mywordlist[i][j] <<" ";
+    }
+    cout << endl;
+  }
 }
 
 //function to print an introduction to the game
@@ -640,11 +686,11 @@ void print_rules(int grid_size, int pool_size, string** computer_wordlist, strin
   while (!keeplooping){
     cin >> ans;
     cout << '\n';
-    if (tolower(ans.at(0)) == 'y'){
+    if (ans.length()==1 && tolower(ans.at(0)) == 'y'){
       start_options(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
       keeplooping = true;
     }
-    else if (tolower(ans.at(0)) == 'n'){
+    else if (ans.length()==1 && tolower(ans.at(0)) == 'n'){
       cout << "You have exited the game."<<endl;
       exit(0);
     }
@@ -682,6 +728,10 @@ int main(){
   show_pool(pool);
 
   pick_user_words(grid_size, userwordlist, pool);
+  cout << "Your grid looks like this: " << endl;
+  view_my_list(grid_size, userwordlist);
+  pick_computer_words(grid_size, pool_size, computerwordlist, pool);
+
   pick_computer_words(grid_size, pool_size, computerwordlist, pool); }
 
   //does toss to determine the turn
@@ -691,14 +741,14 @@ int main(){
   while(get_winner(grid_size, userwordlist)!=true
         && get_winner(grid_size, computerwordlist)!=true){
     if (tossResult == true){
-      user_play(grid_size, userwordlist, pool);
-      computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
       save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
+      user_play(grid_size, userwordlist, pool);
+      computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
     }
     else{
-      computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
-      user_play(grid_size, userwordlist, pool);
       save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
+      computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
+      user_play(grid_size, userwordlist, pool);
     }
   }
   if (get_winner(grid_size, computerwordlist)==true){
