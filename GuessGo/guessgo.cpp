@@ -722,7 +722,8 @@ int main(){
 
   cout << "Welcome to GuessGo!" << '\n' <<endl;
   //shows starting prompt
-  start_options(grid_size, pool_size, computerwordlist, userwordlist, pool);
+  if (start_options(grid_size, pool_size, computerwordlist, userwordlist, pool)=="2" ||
+      start_options(grid_size, pool_size, computerwordlist, userwordlist, pool)=="1"){
   select_words(pool_size, pool);
   cout <<"\nThis is your pool" <<endl;
   show_pool(pool);
@@ -731,6 +732,8 @@ int main(){
   cout << "Your grid looks like this: " << endl;
   view_my_list(grid_size, userwordlist);
   pick_computer_words(grid_size, pool_size, computerwordlist, pool);
+
+  pick_computer_words(grid_size, pool_size, computerwordlist, pool); }
 
   //does toss to determine the turn
   bool tossResult = do_toss();
