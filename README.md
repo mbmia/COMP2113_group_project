@@ -4,11 +4,11 @@ Najia SHARMIN, UID: 3035550860
 
 ## Game description and game structure:  
 Name of game: __GuessGo__  
-
+  
 Mode of play: Single user versus computer  
-
+  
 GuessGo is a game of probability where the players fill a virtual grid with words from a (partially) randomized pool. The players then each take turns to call out words from the pool and the opponent marks it out if it appears on their grid. The objective of the game is to be able to guess a whole row/column on the opponent's grid, with the first player to do so becoming the winner of the game.  
-
+  
 The set of rules governing GuessGo is laid out below:  
 - The game starts with the user choosing the grid size they would like to play with. The virtual grid would be of the dimensions n×n, where the minimum value of n is 3 and the maximum is 15.  
 - The game asks the user for the size of the pool of words that should be provided for the game. The minimum size of the pool is n^2 and the maximum is 500.  
@@ -22,38 +22,45 @@ The set of rules governing GuessGo is laid out below:
   -  Each word can only be called once.  
 - The user and the computer take turns calling out words and crossing out blocks. This continues until on either's grid, one row/column has been completely crossed out. It does not count if the blocks are crossed out at a stretch diagonally.  
 - The game comes to an end. The player who has been able to guess the all the words in a row/column in the opponent's grid is declared the winner.  
-- __The '*hitword*' mechanism:__  
-  - When the grid size is greater than 10×10, the pool will contain 6 'hitwords'.
-  - Each player can choose no more than three hitwords. The computer will always choose the maximum permissible number of hitwords.  
-  - When a player chooses the hitword, the block on the opponent's grid containing the word is crossed out as normal.  
-  - However, when a word in a block immediately adjacent to the *hitword* is chosen by the opponent, the hitword is activated and the game ends.  
-  - The player whose hitword has been activated is the winner of the game.
-  - If no hitword has been activated, the game proceeds as normal.
+  
+## A list of features/functions that we implemented
 
-## A list of features/functions that we plan to implement
+- *previous_game()*: Function to check if there are any saved games
 
-- Function to take the input of the size of the grid and the pool size.
+- *restore_game()*: Function to restore the previous saved game when the player wants to resume last attempt
 
-- Function to randomly select the pool of 'normal' words from a .txt file and the pool of 'hitwords' from another .txt file (when necessary).  The pool is then displayed for the first time. The pool is also stored in an array of strings.
+- *get_input()*: Function to take the input of the size of the grid and the pool size.
 
-- Function to let the user pick words for the grid. Words stored in a dynamic 2D array of strings. Grid displayed.
+- *select_words()*: Function to randomly select the pool of  words from a .txt file. The pool is then displayed for the first time. The pool is also stored in a vector of strings named *pool* in alphabetical order.
 
-- Function to let the computer pick its words randomly. Words stored in another dynamic 2D array.
+- *show_pool()*: Function to show the pool of words whenever necessary.
 
-- Function to check if the picks are valid.
+- *pick_user_words()*: Function to let the user pick words for the grid. Words stored in a dynamic 2D array of strings named *userwordlist*.Grid displayed.
 
-- Function to have a toss to select who guesses first.
+- *pick_computer_words()*: Function to let the computer pick its words randomly. Words stored in another dynamic 2D array named *computerwordlist*.
 
-- Function to verify computer's and user's guesses
+- *check_words()*: Function to check if the picks are valid.
 
-- Function to make sure the guessed word, if present in the user/computer's grid, is replaced with X, and stored in the respective dynamic array
+- *do_toss()*: Function to have a toss to select who guesses first.
 
-- Function to check for the winner.
+- *check_guess()*: Function to verify computer's and user's guesses. I is made sure the guessed word, if present in the user/computer's grid, is replaced with X in the same dynamic array.
 
-- A function to control the game flow. Note that the user and computer will be asked for calling out guesses in this function. There
-  will be an option to end the game. If the game is ended by the user, then all the updated arrays and the numbers will be stored in an
-  output file (separate function). The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
+- *get_winner()*: Function to check for the winner.
+
+- *start_options()*: Function to display the options at the start of the game.
+
+- *print_rules()*: Function to display the rules of GuessGo from a separate .txt file called *rulebook.txt* in *txt_files* directory.
+		
+- *main()*: The main function controls the game-flow. Note that the user and computer will be asked for calling out guesses in this function by calling out two different functions, i.e. *user_play()* and *computer_play()* respectively. There
+  will be an option to end the game. If the game is ended by the user, then all the updated arrays, vectors and the numbers will be stored in several
+  output files (by a separate function, *save_game()*), i.e. *save_pool.txt* for saving the pool of words, *save_picked_words.txt* to save the user's grid, *save_computer_wordlist.txt* to save the computer's grid, and *save_sizes.txt* to store the toss result, grid_size and pool_size. The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
   or start a new game. If the last game is resumed, then all the information is taken from the previously saved file and the game is
-  continued. Another function will be implemented for this too.
+  continued. Another function, namely the *restore_game()* function will be implemented for this.
 
-- The main() function for program execution.
+
+
+
+
+
+
+
