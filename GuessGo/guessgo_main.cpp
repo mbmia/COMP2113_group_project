@@ -56,17 +56,10 @@ int main(){
   }
   if (get_winner(grid_size, computerwordlist)==true){
     cout << "Congrats! You have won the game :D" <<endl;
-    ofstream fout;
-    fout.open("txt_files/prev_game.txt");
-    fout<<0<<endl;
-    fout.close();
   }
+  
   else if (get_winner(grid_size, userwordlist)==true){
     cout << "The computer won the game :(" <<endl;
-    ofstream fout;
-    fout.open("txt_files/prev_game.txt");
-    fout<<0<<endl;
-    fout.close();
   }
 
   return 0;
