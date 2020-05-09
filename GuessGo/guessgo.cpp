@@ -70,7 +70,7 @@ void user_play(int grid_size, string** &users_list, vector<string> pool);
 void computer_play(int grid_size, int pool_size, string** &computer_list, string** &user_list, vector<string> pool, vector<int> hit_numbers);
 
 //function for options at the start of games
-void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
+string start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 
 //function to show the user their grid_size
 void view_my_list(int grid_size, string ** mywordlist);
