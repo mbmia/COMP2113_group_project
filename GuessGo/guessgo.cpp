@@ -651,7 +651,7 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 void view_my_list(int grid_size, string ** mywordlist){
   for (int i = 0; i<grid_size; i++){
     for (int j = 0; j<grid_size; j++){
-      cout << left << setw(20)<< mywordlist[i][j] <<" ";
+      cout << left << setw(16)<< mywordlist[i][j] <<" ";
     }
     cout << endl;
   }
