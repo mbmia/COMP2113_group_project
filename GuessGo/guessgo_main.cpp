@@ -12,44 +12,62 @@
 #include <algorithm>
 using namespace std;
 
-//function to print an introduction to the game
-void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
-  string ans;
-  char reply;
-  bool keeplooping = true;
+int main(){
+  int grid_size, pool_size;
+  bool tossResult;
+  string** userwordlist;
+  string** computerwordlist;
+  vector<string> pool;
+  vector<int> hitnumbers;
 
-  string rule_path = "txt_files/rulebook.txt";
-  ifstream fin;
-  fin.open(rule_path.c_str());
 
-  if (fin.fail()){
-    cout << "Sorry, there was an error in displaying the rules. Would you like to continue? (Y/N)" << endl;
-    keeplooping = false;
-  }
+  cout << "Welcome to GuessGo!" << '\n' <<endl;
 
-  while (!keeplooping){
-    cin >> ans;
-    cout << '\n';
-    if (ans.length()==1 && tolower(ans.at(0)) == 'y'){
-      start_options(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
-      keeplooping = true;
+
+  get_input(grid_size, pool_size);
+
+    select_words(pool_size, pool);
+    cout <<"\nThis is your pool" <<endl;
+    show_pool(pool);
+
+    pick_user_words(grid_size, userwordlist, pool);
+    cout << "Your grid looks like this: " << endl;
+    view_my_list(grid_size, userwordlist);
+    pick_computer_words(grid_size, pool_size, computerwordlist, pool);
+    tossResult = do_toss();
+
+
+  //does toss to determine the turn
+
+
+  //game continues till there is a winner
+  while(get_winner(grid_size, userwordlist)!=true
+        && get_winner(grid_size, computerwordlist)!=true){
+    if (tossResult == true){
+      save_game(grid_size, pool_size, tossResult, pool, computerwordlist, userwordlist);
+      user_play(grid_size, computerwordlist, pool);
+      computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
     }
-    else if (ans.length()==1 && tolower(ans.at(0)) == 'n'){
-      cout << "You have exited the game."<<endl;
-      exit(0);
+    else{
+      save_game(grid_size, pool_size, tossResult, pool, computerwordlist, userwordlist);
+      computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
+      user_play(grid_size, computerwordlist, pool);
     }
-
-    else
-      cout << "Invalid input. (Y/N)"<<'\n'<<endl;
+  }
+  if (get_winner(grid_size, computerwordlist)==true){
+    cout << "Congrats! You have won the game :D" <<endl;
+    ofstream fout;
+    fout.open("txt_files/prev_game.txt");
+    fout<<0<<endl;
+    fout.close();
+  }
+  else if (get_winner(grid_size, userwordlist)==true){
+    cout << "The computer won the game :(" <<endl;
+    ofstream fout;
+    fout.open("txt_files/prev_game.txt");
+    fout<<0<<endl;
+    fout.close();
   }
 
-  string x;
-  while (fin >> x){
-    cout << x << " ";
-  }
-
-  cout << '\n' <<endl;
-
-  fin.close();
-  start_options(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
+  return 0;
 }
