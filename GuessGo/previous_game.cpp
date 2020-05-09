@@ -18,7 +18,7 @@ bool previous_game(){
   s = "txt_files/save_pool.txt";
   fin.open(s.c_str());
   if (fin.fail()){
-    cout<<"Error loading the previous game status. Continue to play a new game."<<endl;
+    //cout<<"Error loading the previous game status. Continue to play a new game."<<endl;
     return false;
   }
   else {
