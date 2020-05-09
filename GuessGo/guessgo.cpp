@@ -649,9 +649,16 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 }
 
 void view_my_list(int grid_size, string ** mywordlist){
-  for (int i = 0; i<grid_size; i++){
+  int largestlength = mywordlist[0][0].length();
+  for (int m = 0; m < grid_size; m++){
+    for (int n = 0; n<grid_size; n++){
+      if (mywordlist[m][n].length()>largestlength)
+        largestlength = mywordlist[m][n].length();
+    }
+  }
+ for (int i = 0; i<grid_size; i++){
     for (int j = 0; j<grid_size; j++){
-      cout << left << setw(16)<< mywordlist[i][j] <<" ";
+      cout << left << setw(largestlength)<< mywordlist[i][j] <<" ";
     }
     cout << endl;
   }
