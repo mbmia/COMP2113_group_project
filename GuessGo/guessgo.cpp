@@ -86,7 +86,6 @@ bool previous_game(){
   ifstream fin;
   fin.open("txt_files/prev_game.txt");
   if (fin.fail()){
-    cout<<"Error loading the previous game status. Continue to play a new game."<<endl;
     return false;
   }
   else {
