@@ -10,6 +10,7 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <algorithm>
+#include "guessgo.h"
 using namespace std;
 
 int main(){
@@ -57,7 +58,7 @@ int main(){
   if (get_winner(grid_size, computerwordlist)==true){
     cout << "Congrats! You have won the game :D" <<endl;
   }
-  
+
   else if (get_winner(grid_size, userwordlist)==true){
     cout << "The computer won the game :(" <<endl;
   }
