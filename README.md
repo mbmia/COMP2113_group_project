@@ -45,12 +45,6 @@ The set of rules governing GuessGo is laid out below:
 
 - *check_guess()*: Function to verify computer's and user's guesses. I is made sure the guessed word, if present in the user/computer's grid, is replaced with X in the same dynamic array.
 
-- *get_winner()*: Function to check for the winner.
-
-- *start_options()*: Function to display the options at the start of the game.
-
-- *print_rules()*: Function to display the rules of GuessGo from a separate .txt file called *rulebook.txt* in *txt_files* directory.
-
 - *main()*: The main function controls the game-flow. Note that the user and computer will be asked for calling out guesses in this function by calling out two different functions, i.e. *user_play()* and *computer_play()* respectively. There
   will be an option to end the game. If the game is ended by the user, then all the updated arrays, vectors and the numbers will be stored in several
   output files (by a separate function, *save_game()*), i.e. *save_pool.txt* for saving the pool of words, *save_picked_words.txt* to save the user's grid, *save_computer_wordlist.txt* to save the computer's grid, and *save_sizes.txt* to store the toss result, grid_size and pool_size. The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
