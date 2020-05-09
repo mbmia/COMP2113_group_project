@@ -686,14 +686,15 @@ int main(){
   while(get_winner(grid_size, userwordlist)!=true
         && get_winner(grid_size, computerwordlist)!=true){
     if (tossResult == true){
+      save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
       user_play(grid_size, userwordlist, pool);
       computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
-      save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
+
     }
     else{
+      save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
       computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
       user_play(grid_size, userwordlist, pool);
-      save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
     }
   }
   if (get_winner(grid_size, computerwordlist)==true){
