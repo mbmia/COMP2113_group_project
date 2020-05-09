@@ -175,7 +175,7 @@ void get_input(int& grid_size, int& pool_size){
   cout << "Do you have a preference for the number of words you'll play with? (Y/N)" <<endl;
   cin >> reply;
 
-  while(tolower(reply.at(0))!='y' && tolower(reply.at(0))!='n'){
+  while(reply.length()!=1 && reply.at(0)!='y' || reply.length()!=1 && reply.at(0)!='n'){
     cout << "Invalid input. (Y/N)" <<endl;
     cin >> reply;
   }
@@ -289,7 +289,7 @@ void pick_user_words(int grid_size, string** &picked_words, vector<string> word_
           choice = strChoice.at(0);
           choice = tolower(choice);
 
-          while(choice!='y' && choice!='n'){
+          while(strChoice.length()!=1 && choice!='y' || strChoice.length()!=1 && choice!='n'){
             cout << "Invalid response. (Y/N)"<<endl;
             cin >> strChoice;
             choice = strChoice.at(0);
@@ -358,7 +358,8 @@ bool do_toss(){
   cout<<"\nIt's time for a toss. Do you want to pick first?(Y/N)"<<endl;
   cin>>myPick;
   pick=tolower(myPick.at(0));
-  while (pick!='y' && pick!='n'){
+
+  while (myPick.length()!=1 && pick!='y' || myPick.length()!=1 && pick!='n'){
     cout<<"Invalid choice.(Y/N)"<<endl;
     cin>>myPick;
     pick=tolower(myPick.at(0));
@@ -367,7 +368,8 @@ bool do_toss(){
     cout<<"H or T?"<<endl;
     cin>>myPick;
     pick=tolower(myPick.at(0));
-    while (pick!='h'&& pick!='t'){
+
+    while (myPick.length()!=1 && pick!='h' || myPick.length()!=1 && pick!='t'){
       cout<<"Invalid choice.(H or T)"<<endl;
       cin>>myPick;
       pick=tolower(myPick.at(0));
@@ -408,8 +410,9 @@ bool do_toss(){
 //checks if the guess exists in the pool
 string get_user_guess(vector<string> pool){
     string guess, response;
-    cout << "Please type in your guess: ";
+    cout << "Please type in your guess" <<endl;
     bool guessOk = false;
+
     while (!guessOk){
       cin >> guess;
       if (check_words(guess, pool)==true){
@@ -421,7 +424,7 @@ string get_user_guess(vector<string> pool){
 
         cin >> response;
 
-        while(tolower(response.at(0))!='y' && tolower(response.at(0))!='n'){
+        while(response.length()!=1 && tolower(response.at(0))!='y' || response.length()!=1 && tolower(response.at(0))!='n'){
           cout << "Invalid response. (Y/N)"<<endl;
           cin >> response;
           }
@@ -576,6 +579,7 @@ void user_play(int grid_size, string** &users_list, vector<string> pool){
 //functio to let computer play
 void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers){
   //computer guesses
+  string reply;
   string computerguess = get_computer_guess(pool_size, pool, hit_numbers);
   //guess is checked
   //the game shows whether the user's word has been hit or not
@@ -600,7 +604,8 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 
     cin >> answer;
 
-    while (answer.at(0)!='1' && answer.at(0)!='2' && answer.at(0)!='3'){
+    while (answer.length()!=1 && answer.at(0)!='1' ||
+          answer.length()!=1 && answer.at(0)!='2' || answer.length()!=1 && answer.at(0)!='3'){
       cout << "Invalid input. Please try again." << endl;
       cin >> answer;
     }
@@ -636,11 +641,11 @@ void print_rules(int grid_size, int pool_size, string** computer_wordlist, strin
   while (!keeplooping){
     cin >> ans;
     cout << '\n';
-    if (tolower(ans.at(0)) == 'y'){
+    if (ans.length()==1 && tolower(ans.at(0)) == 'y'){
       start_options(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
       keeplooping = true;
     }
-    else if (tolower(ans.at(0)) == 'n'){
+    else if (ans.length()==1 && tolower(ans.at(0)) == 'n'){
       cout << "You have exited the game."<<endl;
       exit(0);
     }
@@ -689,7 +694,6 @@ int main(){
       save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
       user_play(grid_size, userwordlist, pool);
       computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
-
     }
     else{
       save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
