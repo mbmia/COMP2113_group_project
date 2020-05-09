@@ -637,15 +637,20 @@ string start_options(int &grid_size, int &pool_size, string** computer_wordlist,
 
     if (answer.at(0) == '1'){
       cout << '\n';
-      print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool); }
+      print_rules(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
+      return "1";
+    }
 
     else if (answer.at(0) == '2'){
       get_input(grid_size, pool_size);
+      return "2";
     }
 
     else if (answer.at(0)=='3'){
       restore_game(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
+      return "3";
     }
+    return "0";
 }
 
 void view_my_list(int grid_size, string ** mywordlist){
