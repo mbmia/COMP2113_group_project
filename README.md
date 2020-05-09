@@ -22,39 +22,40 @@ The set of rules governing GuessGo is laid out below:
   -  Each word can only be called once.  
 - The user and the computer take turns calling out words and crossing out blocks. This continues until on either's grid, one row/column has been completely crossed out. It does not count if the blocks are crossed out at a stretch diagonally.  
 - The game comes to an end. The player who has been able to guess the all the words in a row/column in the opponent's grid is declared the winner.  
-- __The '*hitword*' mechanism:__  
-  - When the grid size is greater than 10×10, the pool will contain 6 'hitwords'.
-  - Each player can choose no more than three hitwords. The computer will always choose the maximum permissible number of hitwords.  
-  - When a player chooses the hitword, the block on the opponent's grid containing the word is crossed out as normal.  
-  - However, when a word in a block immediately adjacent to the *hitword* is chosen by the opponent, the hitword is activated and the game ends.  
-  - The player whose hitword has been activated is the winner of the game.
-  - If no hitword has been activated, the game proceeds as normal.
   
-## A list of features/functions that we plan to implement
+## A list of features/functions that we implemented
 
-- Function to take the input of the size of the grid and the pool size.
+- *previous_game()*: Function to check if there are any saved games
+
+- *restore_game()*: Function to restore the previous saved game when the player wants to resume last attempt
+
+- *get_input()*: Function to take the input of the size of the grid and the pool size.
+
+- *select_words()*: Function to randomly select the pool of  words from a .txt file. The pool is then displayed for the first time. The pool is also stored in a vector of strings named *pool* in alphabetical order.
+
+- *show_pool()*: Function to show the pool of words whenever necessary.
+
+- *pick_user_words()*: Function to let the user pick words for the grid. Words stored in a dynamic 2D array of strings named *userwordlist*.Grid displayed.
+
+- *pick_computer_words()*: Function to let the computer pick its words randomly. Words stored in another dynamic 2D array named *computerwordlist*.
+
+- *check_words()*: Function to check if the picks are valid.
+
+- *do_toss()*: Function to have a toss to select who guesses first.
+
+- *check_guess()*: Function to verify computer's and user's guesses. I is made sure the guessed word, if present in the user/computer's grid, is replaced with X in the same dynamic array.
+
+- *get_winner()*: Function to check for the winner.
+
+- *start_options()*: Function to display the options at the start of the game.
+
+- *print_rules()*: Function to display the rules of GuessGo from a separate .txt file called *rulebook.txt* in *txt_files* directory.
 		
-- Function to randomly select the pool of 'normal' words from a .txt file and the pool of 'hitwords' from another .txt file (when necessary).  The pool is then displaying for the first time. The pool is also stored in an array of strings.
-		
-- Function to let the user pick words for the grid. Words stored in a dynamic 2D array of strings. Grid displayed.
-		
-- Function to let the computer pick its words randomly. Words stored in another dynamic 2D array.
-		
-- Function to check if the picks are valid.
-		
-- Function to have a toss to select who guesses first.
-		
-- Function to verify computer's and user's guesses
-		
-- Function to make sure the guessed word, if present in the user/computer's grid, is replaced with X, and stored in the respective dynamic array
-		
-- Function to check for the winner.
-		
-- The main function controls the game-flow. Note that the user and computer will be asked for calling out guesses in this function. There
-  will be an option to end the game. If the game is ended by the user, then all the updated arrays and the numbers will be stored in an
-  output file (separate function). The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
+- *main()*: The main function controls the game-flow. Note that the user and computer will be asked for calling out guesses in this function by calling out two different functions, i.e. *user_play()* and *computer_play()* respectively. There
+  will be an option to end the game. If the game is ended by the user, then all the updated arrays, vectors and the numbers will be stored in several
+  output files (by a separate function, *save_game()*), i.e. *save_pool.txt* for saving the pool of words, *save_picked_words.txt* to save the user's grid, *save_computer_wordlist.txt* to save the computer's grid, and *save_sizes.txt* to store the toss result, grid_size and pool_size. The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
   or start a new game. If the last game is resumed, then all the information is taken from the previously saved file and the game is
-  continued. Another function will be implemented for this too.
+  continued. Another function, namely the *restore_game()* function will be implemented for this.
 
 
 
