@@ -160,17 +160,38 @@ void restore_game(int &grid_size, int &pool_size, string** &computer_wordlist, s
 
 //function to take input for the size of grid and pool
 void get_input(int& grid_size, int& pool_size){
-  string reply;
+  string reply, gridsize;
   bool looper = false;
 
   cout << "In GuessGo, your virtual grid will have the same number of rows and columns" <<endl;
   cout<< "How many rows/columns would you like your grid to have? (It must be between 3 and 15!)"<<endl;
-  cin >> grid_size;
+  bool keeplooping = false;
 
-  while (grid_size<3 || grid_size>15){
-    cout << "Your choice is out of range. Please try again." <<endl;
-    cin >> grid_size;
+  while(!keeplooping){
+  grid_size = 0;
+  cin >> gridsize;
+
+  try{
+    grid_size = stoi(gridsize);
   }
+  catch(invalid_argument const &e){
+    cout << "Please input an integer" <<endl;
+  }
+
+  if (grid_size>=3 && grid_size<=15){
+    keeplooping = true;
+  }
+
+  else if (grid_size==0){
+    continue;
+  }
+
+  else{
+    cout << "Your choice is out of range. Please try again." <<endl;
+  }
+}
+
+
   cout <<endl;
 
   int nsquared = grid_size*grid_size;
@@ -178,7 +199,7 @@ void get_input(int& grid_size, int& pool_size){
   cout << "Do you have a preference for the number of words you'll play with? (Y/N)" <<endl;
   cin >> reply;
 
-  while(reply.length()!=1 && reply.at(0)!='y' || reply.length()!=1 && reply.at(0)!='n'){
+  while(reply.length()!=1 || (reply.at(0)!='y' && reply.at(0)!='n')){
     cout << "Invalid input. (Y/N)" <<endl;
     cin >> reply;
   }
@@ -292,7 +313,7 @@ void pick_user_words(int grid_size, string** &picked_words, vector<string> word_
           choice = strChoice.at(0);
           choice = tolower(choice);
 
-          while(strChoice.length()!=1 && choice!='y' || strChoice.length()!=1 && choice!='n'){
+          while(strChoice.length()!=1 || (choice!='y' && choice!='n')){
             cout << "Invalid response. (Y/N)"<<endl;
             cin >> strChoice;
             choice = strChoice.at(0);
@@ -362,7 +383,7 @@ bool do_toss(){
   cin>>myPick;
   pick=tolower(myPick.at(0));
 
-  while (myPick.length()!=1 && pick!='y' || myPick.length()!=1 && pick!='n'){
+  while (myPick.length()!=1 ||( pick!='y' && pick!='n')){
     cout<<"Invalid choice.(Y/N)"<<endl;
     cin>>myPick;
     pick=tolower(myPick.at(0));
@@ -372,7 +393,7 @@ bool do_toss(){
     cin>>myPick;
     pick=tolower(myPick.at(0));
 
-    while (myPick.length()!=1 && pick!='h' || myPick.length()!=1 && pick!='t'){
+    while (myPick.length()!=1 ||( pick!='h' && pick!='t')){
       cout<<"Invalid choice.(H or T)"<<endl;
       cin>>myPick;
       pick=tolower(myPick.at(0));
@@ -427,7 +448,7 @@ string get_user_guess(vector<string> pool){
 
         cin >> response;
 
-        while(response.length()!=1 && tolower(response.at(0))!='y' || response.length()!=1 && tolower(response.at(0))!='n'){
+        while(response.length()!=1 || (tolower(response.at(0))!='y'&& tolower(response.at(0))!='n')){
           cout << "Invalid response. (Y/N)"<<endl;
           cin >> response;
           }
@@ -588,6 +609,13 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, vector
   //the game shows whether the user's word has been hit or not
   if (check_guess(grid_size, computerguess, computer_list)){
     cout << "The computer hit a word in your grid" <<endl;
+    cout << "Press 'V' to view your current grid. ENTER to skip" <<endl;
+
+    getline(cin, reply);
+
+    if (reply.length()>0){
+      cout << "ok " <<endl;
+    }
   }
   else{
     cout << "The computer's guess was a miss!" <<endl;
@@ -607,8 +635,7 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
 
     cin >> answer;
 
-    while (answer.length()!=1 && answer.at(0)!='1' ||
-          answer.length()!=1 && answer.at(0)!='2' || answer.length()!=1 && answer.at(0)!='3'){
+    while (answer.length()!=1|| (answer.at(0)!='1' && answer.at(0)!='2' && answer.at(0)!='3')){
       cout << "Invalid input. Please try again." << endl;
       cin >> answer;
     }
