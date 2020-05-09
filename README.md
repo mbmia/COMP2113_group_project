@@ -56,11 +56,3 @@ The set of rules governing GuessGo is laid out below:
   output files (by a separate function, *save_game()*), i.e. *save_pool.txt* for saving the pool of words, *save_picked_words.txt* to save the user's grid, *save_computer_wordlist.txt* to save the computer's grid, and *save_sizes.txt* to store the toss result, grid_size and pool_size. The next time the user wants to play the game, s/he will be asked if they want to resume the last trial
   or start a new game. If the last game is resumed, then all the information is taken from the previously saved file and the game is
   continued. Another function, namely the *restore_game()* function will be implemented for this.
-
-
-
-
-
-
-
-
