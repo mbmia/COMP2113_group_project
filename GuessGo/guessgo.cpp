@@ -67,7 +67,7 @@ void save_game(int grid_size, int pool_size, vector<string> pool, string** &comp
 void user_play(int grid_size, string** &users_list, vector<string> pool);
 
 //functio to let computer play
-void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers);
+void computer_play(int grid_size, int pool_size, string** &computer_list, string** &user_list, vector<string> pool, vector<int> hit_numbers);
 
 //function for options at the start of games
 void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
@@ -601,7 +601,7 @@ void user_play(int grid_size, string** &users_list, vector<string> pool){
 }
 
 //functio to let computer play
-void computer_play(int grid_size, int pool_size, string** &computer_list, vector<string> pool, vector<int> hit_numbers){
+void computer_play(int grid_size, int pool_size, string** &computer_list, string** &user_list, vector<string> pool, vector<int> hit_numbers){
   //computer guesses
   string reply;
   string computerguess = get_computer_guess(pool_size, pool, hit_numbers);
@@ -609,13 +609,8 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, vector
   //the game shows whether the user's word has been hit or not
   if (check_guess(grid_size, computerguess, computer_list)){
     cout << "The computer hit a word in your grid" <<endl;
-    cout << "Press 'V' to view your current grid. ENTER to skip" <<endl;
-
-    getline(cin, reply);
-
-    if (reply.length()>0){
-      cout << "ok " <<endl;
-    }
+    cout << "\nYour grid now is: " <<endl;
+    view_my_list(grid_size, user_list);
   }
   else{
     cout << "The computer's guess was a miss!" <<endl;
@@ -721,6 +716,8 @@ int main(){
   show_pool(pool);
 
   pick_user_words(grid_size, userwordlist, pool);
+  cout << "Your grid looks like this: " << endl;
+  view_my_list(grid_size, userwordlist);
   pick_computer_words(grid_size, pool_size, computerwordlist, pool);
 
   //does toss to determine the turn
@@ -732,11 +729,11 @@ int main(){
     if (tossResult == true){
       save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
       user_play(grid_size, userwordlist, pool);
-      computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
+      computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
     }
     else{
       save_game(grid_size, pool_size, pool, computerwordlist, userwordlist);
-      computer_play(grid_size, pool_size, computerwordlist, pool, hitnumbers);
+      computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
       user_play(grid_size, userwordlist, pool);
     }
   }
