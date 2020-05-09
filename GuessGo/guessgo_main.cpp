@@ -45,12 +45,10 @@ int main(){
   while(get_winner(grid_size, userwordlist)!=true
         && get_winner(grid_size, computerwordlist)!=true){
     if (tossResult == true){
-      save_game(grid_size, pool_size, tossResult, pool, computerwordlist, userwordlist);
       user_play(grid_size, computerwordlist, pool);
       computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
     }
     else{
-      save_game(grid_size, pool_size, tossResult, pool, computerwordlist, userwordlist);
       computer_play(grid_size, pool_size, computerwordlist, userwordlist, pool, hitnumbers);
       user_play(grid_size, computerwordlist, pool);
     }
