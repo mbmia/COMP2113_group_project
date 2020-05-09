@@ -276,7 +276,7 @@ void select_words(int pool_size, vector<string> &wordarray){
 //function to print the pool of words
 void show_pool(vector<string> pool){
   for (int i = 0; i<pool.size();i++)
-    cout << pool[i] << endl;
+    cout << left << setw(16) << pool[i]<<endl;
 }
 
 //function to check if the picks are valid
