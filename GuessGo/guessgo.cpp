@@ -72,6 +72,9 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, vector
 //function for options at the start of games
 void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 
+//function to show the user their grid_size
+void view_my_list(int grid_size, string ** mywordlist);
+
 //function to print an introduction to the game
 void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 
@@ -621,6 +624,15 @@ void start_options(int &grid_size, int &pool_size, string** computer_wordlist, s
     else if (answer.at(0)=='3'){
       restore_game(grid_size, pool_size, computer_wordlist, user_wordlist, pool);
     }
+}
+
+void view_my_list(int grid_size, string ** mywordlist){
+  for (int i = 0; i<grid_size; i++){
+    for (int j = 0; j<grid_size; j++){
+      cout << left << setw(20)<< mywordlist[i][j] <<" ";
+    }
+    cout << endl;
+  }
 }
 
 //function to print an introduction to the game
