@@ -1,6 +1,7 @@
 #include <iostream>
 #include<cstdlib>
 #include<cstring>
+#include<cmath>
 #include<cctype>
 #include<ctime>
 #include <fstream>
@@ -83,15 +84,15 @@ void print_rules(int grid_size, int pool_size, bool &tossResult, string** comput
 //function to check if there are any saved games
 bool previous_game(){
   ifstream fin;
-  fin.open("txt_files/save_pool.txt");
+  fin.open("txt_files/prev_game.txt");
   if (fin.fail()){
     cout<<"Error loading the previous game status. Continue to play a new game."<<endl;
     return false;
   }
   else {
-    string game_status;
+    int game_status;
     fin>>game_status;
-    if (game_status=="1"){
+    if (game_status==1){
       return true;
     }
   }
@@ -101,8 +102,10 @@ bool previous_game(){
 
 //function to restore the saved game
 void restore_game(int &grid_size, int &pool_size, bool &tossResult, string** &computerwordlist, string** &userwordlist, vector<string>pool){
+  cout<<"hello"<<endl;
   ifstream fin;
   fin.open("txt_files/save_sizes.txt");
+  cout<<"help!!"<<endl;
   int num;
   fin>>num;
   pool_size=num;
@@ -111,13 +114,16 @@ void restore_game(int &grid_size, int &pool_size, bool &tossResult, string** &co
   bool toss;
   fin>>toss;
   tossResult=toss;
-  fin.close()
+  fin.close();
   fin.open("txt_files/save_pool.txt");
   string pool_word;
   while (fin>>pool_word){
     pool.push_back(pool_word);
   }
   fin.close();
+  for (int i;i<pool_size;i++)
+  cout<<pool[i]<<endl;
+  grid_size=sqrt(pool_size);
   userwordlist = new string*[grid_size];
   for (int i=0; i<grid_size; i++){
     userwordlist[i] = new string[grid_size];
@@ -156,6 +162,11 @@ void restore_game(int &grid_size, int &pool_size, bool &tossResult, string** &co
     i++;
   }
   fin.close();
+  for (int k=0; k<grid_size;++k){
+    for (int l=0; l<grid_size;l++){
+      cout<<computerwordlist[k][l]<<"       "<<userwordlist[k][l]<<endl;
+    }
+  }
 }
 
 //function to take input for the size of grid and pool
@@ -545,17 +556,21 @@ bool get_winner(int grid_size, string** &wordlist){
 
 //function to save game for later
 void save_game(int grid_size, int pool_size, bool &tossResult, vector<string> pool, string** &computer_wordlist, string** &picked_words){
-  ofstream fout("txt_files/save_pool.txt");
+  ofstream fout;
+  fout.open("txt_files/prev_game.txt");
+  fout<<1<<endl;
+  fout.close();
+  fout.open("txt_files/save_pool.txt");
   if (fout.fail()){
     cout<<"Sorry, there was an error in saving the game. Game status could not be saved!\n"<<endl;
   }
   else{
-    fout<<"1"<<endl;
+    fout<<endl;
     for (int i=0;i<pool_size;i++){
       fout<<pool[i]<<endl;
     }
     fout.close();
-    ofstream fout("txt_files/save_picked_words.txt");
+    fout.open("txt_files/save_picked_words.txt");
     if (fout.fail()){
       cout<<"Sorry, there was an error in saving the game. Game status could not be saved!\n"<<endl;
     }
@@ -567,7 +582,7 @@ void save_game(int grid_size, int pool_size, bool &tossResult, vector<string> po
         fout<<"\n";
       }
       fout.close();
-      ofstream fout("txt_files/save_computer_wordlist.txt");
+      fout.open("txt_files/save_computer_wordlist.txt");
       if (fout.fail()){
         cout<<"Sorry, there was an error in saving the game. Game status could not be saved!\n"<<endl;
       }
@@ -725,8 +740,9 @@ int main(){
 
   cout << "Welcome to GuessGo!" << '\n' <<endl;
   //shows starting prompt
-  if (start_options(grid_size, pool_size, tossResult, computerwordlist, userwordlist, pool)=="2" ||
-      start_options(grid_size, pool_size, tossResult, computerwordlist, userwordlist, pool)=="1"){
+  string s=start_options(grid_size, pool_size, tossResult, computerwordlist, userwordlist, pool);
+  if (s=="2" ||
+      s=="1"){
     select_words(pool_size, pool);
     cout <<"\nThis is your pool" <<endl;
     show_pool(pool);
@@ -758,13 +774,15 @@ int main(){
   }
   if (get_winner(grid_size, computerwordlist)==true){
     cout << "Congrats! You have won the game :D" <<endl;
-    ofstream fout("txt_files/save_pool.txt");
+    ofstream fout;
+    fout.open("txt_files/prev_game.txt");
     fout<<0<<endl;
     fout.close();
   }
   else if (get_winner(grid_size, userwordlist)==true){
     cout << "The computer won the game :(" <<endl;
-    ofstream fout("txt_files/save_pool.txt");
+    ofstream fout;
+    fout.open("txt_files/prev_game.txt");
     fout<<0<<endl;
     fout.close();
   }
