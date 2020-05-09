@@ -618,7 +618,7 @@ void computer_play(int grid_size, int pool_size, string** &computer_list, string
 }
 
 //function for options at the start of games
-void start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
+string start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool){
   string answer;
 
   cout << "To view the rules, press 1" << endl;
