@@ -1,3 +1,16 @@
+#include <iostream>
+#include<cstdlib>
+#include<cstring>
+#include<cmath>
+#include<cctype>
+#include<ctime>
+#include <fstream>
+#include<sstream>
+#include <iomanip>
+#include <vector>
+#include <bits/stdc++.h>
+#include <algorithm>
+using namespace std;
 #ifndef HEADER_H
 #define HEADER_H
 //function headers
@@ -6,7 +19,7 @@
 bool previous_game();
 
 //function to restore the saved game
-void restore_game(int &grid_size, int &pool_size, bool &tossResult,string** &computerwordlist, string** &userwordlist, vector<string>pool);
+void restore_game(int &grid_size, int &pool_size,string** &computerwordlist, string** &userwordlist, vector<string>pool);
 
 //function to take input for the size of grid and pool
 void get_input(int& grid_size, int& pool_size);
@@ -59,11 +72,11 @@ void user_play(int grid_size, string** &users_list, vector<string> pool);
 void computer_play(int grid_size, int pool_size, string** &computer_list, string** &user_list, vector<string> pool, vector<int> hit_numbers);
 
 //function for options at the start of games
-string start_options(int &grid_size, int &pool_size, bool &tossResult, string** computer_wordlist, string** user_wordlist, vector<string> pool);
+string start_options(int &grid_size, int &pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 
 //function to show the user their grid_size
 void view_my_list(int grid_size, string ** mywordlist);
 
 //function to print an introduction to the game
-void print_rules(int grid_size, int pool_size, bool &tossResult, string** computer_wordlist, string** user_wordlist, vector<string> pool);
+void print_rules(int grid_size, int pool_size, string** computer_wordlist, string** user_wordlist, vector<string> pool);
 #endif
