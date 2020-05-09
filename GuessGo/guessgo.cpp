@@ -114,13 +114,10 @@ void restore_game(int &grid_size, int &pool_size, bool &tossResult, string** &co
   fin.close()
   fin.open("txt_files/save_pool.txt");
   string pool_word;
-  pool_size=0;
   while (fin>>pool_word){
     pool.push_back(pool_word);
-    pool_size++;
   }
   fin.close();
-  grid_size=sqrt(pool_size);
   userwordlist = new string*[grid_size];
   for (int i=0; i<grid_size; i++){
     userwordlist[i] = new string[grid_size];
